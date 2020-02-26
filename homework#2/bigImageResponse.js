@@ -5,4 +5,12 @@
     and inspect the loading time in the browser and send many requests to see
     the performance differences)
 */
+const fs = require('fs');
+const http = require('http');
 
+http
+  .createServer((req, res) => {
+    const src = fs.createReadStream('./SchoolOfAthens.jpg');
+    src.pipe(res);
+  })
+  .listen(5000);
