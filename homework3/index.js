@@ -13,10 +13,26 @@ const options = {
   key: fs.readFileSync('./privateKey.key'),
   cert: fs.readFileSync('./certificate.crt')
 };
-
+//const writeStream = fs.createWriteStream('./myText.txt');
 https
   .createServer(options, function(req, res) {
-    res.writeHead(200);
-    res.end('hello world\n');
+    const ccc = fs.createReadStream('./index.html').pipe(res);
+
+    if (req.method === 'POST') {
+      const body = [];
+      req.on('data', chunk => {
+        body.push(chunk);
+      });
+      req.on('end', () => {
+        const parsedBody = Buffer.concat(body).toString();
+        const userInput = parsedBody.split('=')[1] + '\n';
+        //writeStream.write(userInput);
+        fs.appendFile('./myText.txt', userInput, err => {
+          if (err) throw err;
+          console.log('The file updated succesfully!');
+        });
+      });
+      res.write(`<script> alert('succesfully submitted')</script>`);
+    }
   })
   .listen(8000);
