@@ -1,0 +1,43 @@
+<%- include('layouts/header.ejs') %>
+
+
+<%- include('layouts/navigator.ejs') %>
+<div class="jumbotron">
+    <h1 class="display-3">Miracle happening....!!</h1> 
+  </div>
+
+
+  <div class="card-columns">
+
+      <!-- start of product display -->
+<% for(let product of products) {%> 
+    <div class="card text-center">
+      <img class="card-img-top" src="<%= product.imageUrl%>" alt="<%= product.title%>">
+      <div class="card-body">
+        <h5 class="card-title"><%= product.price%> </h5>
+        <p class="card-text"><%= product.title%></p>
+     </div>
+      <div class="card-footer">
+        
+        <a  class="btn btn-primary" href='/usershopping?title=<%= product.title%>&imageUrl=<%= product.imageUrl%>&price=<%= product.title%>'>Add to cart</a>
+      </div>
+    </div>
+  <%  }%> 
+        <!-- end of product display -->
+    </div>
+    
+ 
+
+
+</div>
+</body>
+
+<%- include('layouts/footer.ejs') %>
+<script>
+
+  function showcart(){
+document.getElementById('shoppingcart').style.display='inline'
+document.getElementById('cartCounter').innerHTML= <%= cart%>;
+
+  } showcart();
+</script>

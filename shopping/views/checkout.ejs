@@ -1,0 +1,29 @@
+<%- include('layouts/header.ejs') %>
+
+
+<%- include('layouts/navigator.ejs') %>
+<div class="jumbotron">
+    <h6 class="display-3">Miracle happening....!</h6> 
+    <div class="card-columns">
+     <!-- start of user cart cartList display -->
+<% for(let cartList of userCartList) {%> 
+    <div class="card text-center">
+      <img class="card-img-top" src="<%= cartList.imageUrl%>" alt="<%= cartList.title%>">
+      <div class="card-body">
+        <h5 class="card-title"><%= cartList.price%> </h5>
+        <p class="card-text"><%= cartList.title%></p>
+     </div>
+      <div class="card-footer">
+        
+        <a  class="btn btn-primary" href='/deleteCartItem?id=<%= cartList.id%>'>Delete</a>
+      </div>
+    </div>
+  <%  }%> 
+        <!-- end of cartList display -->    
+      </div> 
+  </div>
+</div>
+</body>
+
+<%- include('layouts/footer.ejs') %>
+
