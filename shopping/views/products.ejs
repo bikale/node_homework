@@ -1,43 +1,147 @@
 <%- include('layouts/header.ejs') %>
 
 
-<%- include('layouts/navigator.ejs') %>
+<%- include('layouts/navigator-admin.ejs') %>
 <div class="jumbotron">
-    <h1 class="display-3">Miracle happening....!!</h1> 
+  <h6 class="display-3">Miracle happening....admin!!</h6>
+</div>
+
+
+
+<div class="card-columns">
+
+  <!-- start of product display -->
+  <% for(let product of products) {%>
+  <div class="card text-center">
+    <img class="card-img-top" src="<%= product.imageUrl%>" alt="<%= product.title%>">
+    <div class="card-body">
+      <h5 class="card-title"><%= product.price%> </h5>
+      <p class="card-text"><%= product.title%></p>
+    </div>
+    <div class="card-footer">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"
+         data-imageUrl="<%= product.imageUrl%>"   data-title=<%= product.title%> data-price=<%= product.price%> 
+         data-description='<%= product.description%> '
+         id='productDetailBtn'>Detail</button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"
+        data-productid="some id in edit goes here" id='productEditBtn'>Edit</button>
+
+      <a class="btn btn-outline-danger" href='/admin'>Delete</a>
+    </div>
   </div>
-
-
-  <div class="card-columns">
-
-      <!-- start of product display -->
-<% for(let product of products) {%> 
-    <div class="card text-center">
-      <img class="card-img-top" src="<%= product.imageUrl%>" alt="<%= product.title%>">
-      <div class="card-body">
-        <h5 class="card-title"><%= product.price%> </h5>
-        <p class="card-text"><%= product.title%></p>
-     </div>
-      <div class="card-footer">
-        
-        <a  class="btn btn-primary" href='/usershopping?title=<%= product.title%>&imageUrl=<%= product.imageUrl%>&price=<%= product.title%>'>Add to cart</a>
-      </div>
-    </div>
-  <%  }%> 
-        <!-- end of product display -->
-    </div>
-    
- 
-
+  <%  }%>
+  <!-- end of product display -->
+</div>
 
 </div>
 </body>
 
 <%- include('layouts/footer.ejs') %>
+
+<!-- product detail and edit modal  -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id='editndeletmodal'
+  aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-columns">
+          <div class="card text-center ">
+            <img class="card-img-top" id= 'itemImage' src="" alt="ItemImages">
+            <div class="card-body">
+              <h5 class="card-title" id='productPrice'>price</h5>
+              <p class="card-text" id='productTitle'>title</p>
+            </div>
+
+          </div>
+          <div class="card text-center ">
+            <strong><p id='productDescription'>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Facere nam voluptas harum tempore sequi deserunt nobis perferendis ullam eius ad quae tempora,
+                quas officia quos, omnis, dolore molestias expedita. Commodi?</p></strong>
+            <div class="card-body">
+              <h5 class="card-title">Rates</h5>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Edit forms -->
+        <div style="display: none;">
+
+          <form action="/admin/add-products" method="POST">
+            <div class="form-group">
+              <label for="title">Product Title</label>
+              <input type="text" class="form-control" name="title" placeholder="Enter Product Title" required>
+              <small id="TitleHelp" class="form-text text-muted">add products title here</small>
+            </div>
+            <div class="form-group">
+              <label for="title">Product image</label>
+              <input type="text" class="form-control" name="imageUrl" placeholder="Enter image URL Title" required>
+              <small id="imageURLHelp" class="form-text text-muted">add products image URL here</small>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Price</label>
+              <div class="form-group">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                  </div>
+                  <input name='price' type="number" class="form-control" aria-label="Amount (to the nearest dollar)"
+                    required>
+                  <div class="input-group-append">
+                    <span class="input-group-text">.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+
+        </div>
+
+
+        <!-- Edit forms -->
+
+
+
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- detail modal  -->
+
 <script>
+  $('#editndeletmodal').on('show.bs.modal', function (event) {
+    let button = $(event.relatedTarget) // Button that triggered the modal
+    let prodDescription = button.data('description') // Extract info from data-* attributes
+    let prodImgUrl = button.data('imageurl')
+    let prodTitle = button.data('title')
+    let prodPrice = button.data('price')
 
-  function showcart(){
-document.getElementById('shoppingcart').style.display='inline'
-document.getElementById('cartCounter').innerHTML= <%= cart%>;
+   
+    let modal = $(this)
+    modal.find('#productPrice').text(prodPrice)
+    modal.find('#productTitle').text(prodTitle)
+    $('#itemImage').attr("src", prodImgUrl);
+    modal.find('#productDescription').text(prodDescription)
+    // // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    // var modal = $(this)
+    // modal.find('.modal-title').text('New message to ' + recipient)
+    // modal.find('.modal-body input').val(recipient) */
 
-  } showcart();
+
+  })
+
+
 </script>

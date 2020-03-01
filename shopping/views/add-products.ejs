@@ -1,10 +1,10 @@
 <%- include('layouts/header.ejs') %>
 
 
-<%- include('layouts/navigator.ejs') %>
+<%- include('layouts/navigator-admin.ejs') %>
 <div class="jumbotron">
     <h5 class="display-3">Add Products!</h5> 
-    <form action="/add-products" method="POST">
+    <form action="/admin/add-products" method="POST">
         <div class="form-group">
           <label for="title">Product Title</label>
           <input type="text" class="form-control" name="title" placeholder="Enter Product Title" required>

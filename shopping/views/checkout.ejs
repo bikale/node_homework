@@ -1,7 +1,7 @@
 <%- include('layouts/header.ejs') %>
 
 
-<%- include('layouts/navigator.ejs') %>
+<%- include('layouts/navigator-user.ejs') %>
 <div class="jumbotron">
     <h6 class="display-3">Miracle happening....!</h6> 
     <div class="card-columns">
@@ -15,7 +15,7 @@
      </div>
       <div class="card-footer">
         
-        <a  class="btn btn-primary" href='/deleteCartItem?id=<%= cartList.id%>'>Delete</a>
+        <a  class="btn btn-primary" href='/user/deleteCartItem?id=<%= cartList.id%>'>Delete</a>
       </div>
     </div>
   <%  }%> 

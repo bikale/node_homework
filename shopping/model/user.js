@@ -1,4 +1,6 @@
-let cart = [];
+let cart = [
+ 
+];
 
 class User {
   constructor(title, imageUrl, price) {
