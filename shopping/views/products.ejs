@@ -23,10 +23,17 @@
          data-imageUrl="<%= product.imageUrl%>"   data-title=<%= product.title%> data-price=<%= product.price%> 
          data-description='<%= product.description%> '
          id='productDetailBtn'>Detail</button>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"
-        data-productid="some id in edit goes here" id='productEditBtn'>Edit</button>
 
-      <a class="btn btn-outline-danger" href='/admin'>Delete</a>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"
+      data-imageUrl="<%= product.imageUrl%>"   data-title=<%= product.title%> data-price=<%= product.price%> 
+         data-description='<%= product.description%> '
+        data-productid=<%= product.id%> id='productEditBtn'>Edit</button>
+
+        <form action="/admin/delete" method="post">
+        <input type="text" value=<%= product.id%> name='id' hidden>
+        <button class="btn btn-outline-danger" type="submit">Delete</button>
+        </form>
+      
     </div>
   </div>
   <%  }%>
@@ -44,12 +51,15 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
+        <h5 class="modal-title">e-shopping</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+
       <div class="modal-body">
+
+        <div style="display: inline;" id='detailDisplayCard'>
         <div class="card-columns">
           <div class="card text-center ">
             <img class="card-img-top" id= 'itemImage' src="" alt="ItemImages">
@@ -70,19 +80,20 @@
 
           </div>
         </div>
-
+      </div>
         <!-- Edit forms -->
-        <div style="display: none;">
+        <div style="display: none;" id='editform'>
 
-          <form action="/admin/add-products" method="POST">
+          <form action="/admin/edit-products" method="POST">
+            <input type="text" class="form-control" name="id" id='editProdId' hidden>
             <div class="form-group">
               <label for="title">Product Title</label>
-              <input type="text" class="form-control" name="title" placeholder="Enter Product Title" required>
+              <input type="text" class="form-control" name="title" id='editProdTitle' required>
               <small id="TitleHelp" class="form-text text-muted">add products title here</small>
             </div>
             <div class="form-group">
               <label for="title">Product image</label>
-              <input type="text" class="form-control" name="imageUrl" placeholder="Enter image URL Title" required>
+              <input type="text" class="form-control" name="imageUrl" id='editProdImgUrl' required>
               <small id="imageURLHelp" class="form-text text-muted">add products image URL here</small>
             </div>
             <div class="form-group">
@@ -92,7 +103,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">$</span>
                   </div>
-                  <input name='price' type="number" class="form-control" aria-label="Amount (to the nearest dollar)"
+                  <input name='price' type="number" class="form-control" id='editProdPrice' aria-label="Amount (to the nearest dollar)"
                     required>
                   <div class="input-group-append">
                     <span class="input-group-text">.00</span>
@@ -100,7 +111,11 @@
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="form-group">
+              <label for="editProdDescription">Product Description</label>
+              <textarea class="form-control" name='description' id="editProdDescription" rows="3" spellcheck="false"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary text-center">Update</button>
           </form>
 
         </div>
@@ -122,18 +137,41 @@
 
 <script>
   $('#editndeletmodal').on('show.bs.modal', function (event) {
+   
     let button = $(event.relatedTarget) // Button that triggered the modal
+    let modal = $(this)
     let prodDescription = button.data('description') // Extract info from data-* attributes
     let prodImgUrl = button.data('imageurl')
     let prodTitle = button.data('title')
     let prodPrice = button.data('price')
 
-   
-    let modal = $(this)
+if(button[0].id=='productDetailBtn'){
+
+  $('#editform').hide();
+  $('#detailDisplayCard').show();
+
     modal.find('#productPrice').text(prodPrice)
     modal.find('#productTitle').text(prodTitle)
     $('#itemImage').attr("src", prodImgUrl);
     modal.find('#productDescription').text(prodDescription)
+
+}
+else{
+
+  $('#detailDisplayCard').hide();
+  $('#editform').show();
+
+  modal.find('#editProdId').val(button.data('productid'))
+  modal.find('#editProdTitle').val(prodTitle)
+  modal.find('#editProdImgUrl').val(prodImgUrl)
+  
+  modal.find('#editProdPrice').val(prodPrice)
+  modal.find('#editProdDescription').val(prodDescription)
+
+  
+  
+  
+}
     // // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
     // // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
     // var modal = $(this)
