@@ -19,5 +19,5 @@ app.use(productRoute);
 app.use(adminRoute);
 
 app.listen(5000, () => {
-  console.log('Server listening on http://localhost:5000');
+  console.log('Server listening on http://localhost:5000/admin');
 });

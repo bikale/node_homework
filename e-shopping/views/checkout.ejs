@@ -2,9 +2,8 @@
 
 
 <%- include('layouts/navigator-user.ejs') %>
-<div class="jumbotron">
-    <h6 class="display-3">Miracle happening....!</h6> 
-    <div class="card-columns">
+</div>
+<div class="card-columns">
      <!-- start of user cart cartList display -->
 <% for(let cartList of userCartList) {%> 
     <div class="card text-center">
@@ -15,7 +14,7 @@
      </div>
       <div class="card-footer">
         
-        <a  class="btn btn-primary" href='/user/deleteCartItem?id=<%= cartList.id%>'>Delete</a>
+        <a  class="btn btn-primary" href='/user/deleteCartItem/<%= cartList.id%>'>Delete</a>
       </div>
     </div>
   <%  }%> 
@@ -27,3 +26,6 @@
 
 <%- include('layouts/footer.ejs') %>
 
+<script>
+  document.getElementById('cartCounter').innerHTML= <%= cart%>;
+  </script>

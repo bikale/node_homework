@@ -65,6 +65,10 @@ class Products {
     const itemIndex = products.indexOf(findeditItem[0]); // indexOf({}) get the index of the object and replace that index with new object
     products[itemIndex] = itemObj;
   }
+  static findItemById(id) {
+    const productItem = products.filter(item => item.id == id);
+    return productItem[0];
+  }
 }
 
 module.exports = Products;

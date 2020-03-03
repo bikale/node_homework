@@ -11,7 +11,7 @@ const {
 const router = express.Router();
 
 router.get(['/','/user'], getAllUserProducts);
-router.get('/user/usershopping', userShopping);
+router.get('/user/usershopping/:id', userShopping);
 router.get('/user/checkout', userCheckOut);
-router.get('/user/deleteCartItem', deleteCartItem);
+router.get('/user/deleteCartItem/:id', deleteCartItem);
 module.exports = router;
