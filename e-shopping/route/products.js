@@ -5,13 +5,15 @@ const {
   userShopping,
   userCheckOut,
   deleteCartItem,
-  getAllUserProducts
+  getAllUserProducts,
+  paymentForm
 } = require('../controller/users');
 
 const router = express.Router();
 
-router.get(['/','/user'], getAllUserProducts);
+router.get(['/', '/user'], getAllUserProducts);
 router.get('/user/usershopping/:id', userShopping);
 router.get('/user/checkout', userCheckOut);
 router.get('/user/deleteCartItem/:id', deleteCartItem);
+router.get('/user/payment/:id', paymentForm);
 module.exports = router;

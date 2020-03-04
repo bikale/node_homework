@@ -38,6 +38,38 @@ let products = [
     price: '300',
     description:
       'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex consequatur temporibus consectetur aliquid modi harum asperiores ducimus dolorem enim magni, fugiat porro a fugit molestiae voluptatibus mollitia velit, perferendis eligendi.'
+  },
+  {
+    id: 1233453,
+    title: 'Adidas',
+    imageUrl: '/images/hoodie3.png',
+    price: '100',
+    description:
+      'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex consequatur temporibus consectetur aliquid modi harum asperiores ducimus dolorem enim magni, fugiat porro a fugit molestiae voluptatibus mollitia velit, perferendis eligendi.'
+  },
+  {
+    id: 12433456,
+    title: 'NodeJs',
+    imageUrl: '/images/hoodie2.png',
+    price: '300',
+    description:
+      'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex consequatur temporibus consectetur aliquid modi harum asperiores ducimus dolorem enim magni, fugiat porro a fugit molestiae voluptatibus mollitia velit, perferendis eligendi.'
+  },
+  {
+    id: 124113456,
+    title: 'Brand',
+    imageUrl: '/images/hoodie4.png',
+    price: '300',
+    description:
+      'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex consequatur temporibus consectetur aliquid modi harum asperiores ducimus dolorem enim magni, fugiat porro a fugit molestiae voluptatibus mollitia velit, perferendis eligendi.'
+  },
+  {
+    id: 123252456,
+    title: 'Flexy',
+    imageUrl: '/images/hoodie1.png',
+    price: '300',
+    description:
+      'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex consequatur temporibus consectetur aliquid modi harum asperiores ducimus dolorem enim magni, fugiat porro a fugit molestiae voluptatibus mollitia velit, perferendis eligendi.'
   }
 ];
 

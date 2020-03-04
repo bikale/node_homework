@@ -45,3 +45,10 @@ exports.deleteCartItem = (req, res) => {
   const cartcount = UserCart.getCartCount();
   res.render('checkout', { userCartList: userCartList, cart: cartcount });
 };
+
+// @desc      Get payment form
+// @route     GET /user/payment/:id
+// @access    private
+exports.paymentForm = (req, res) => {
+  res.render('payment');
+};

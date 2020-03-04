@@ -20,6 +20,9 @@
   <%  }%> 
         <!-- end of cartList display -->    
       </div> 
+      <div class="text-center">
+      <a href="/user/payment/1234">
+      <button class="btn btn-primary btn-lg text-center" type="submit">Continue to checkout</button></a></div>
   </div>
 </div>
 </body>
@@ -27,5 +30,9 @@
 <%- include('layouts/footer.ejs') %>
 
 <script>
-  document.getElementById('cartCounter').innerHTML= <%= cart%>;
+ 
+  $('#shoppingcart').html('<a href="/user/payment/1234"></a>')
+
   </script>
+
+
