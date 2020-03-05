@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 
+const mongoConnect = require('./utils/database').mongoConnect;
 const productRoute = require('./route/products');
 const adminRoute = require('./route/admin');
 
@@ -18,6 +19,12 @@ app.use('/js', express.static(path.join(__dirname, 'public', 'javaScript')));
 app.use(productRoute);
 app.use(adminRoute);
 
-app.listen(5000, () => {
-  console.log('Server listening on http://localhost:5000/admin');
+app.use((req, res, next) => {
+  res.render('404');
+});
+
+mongoConnect(() => {
+  app.listen(5000, () => {
+    console.log('Server listening on http://localhost:5000/admin');
+  });
 });

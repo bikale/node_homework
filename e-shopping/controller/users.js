@@ -22,9 +22,13 @@ exports.userShopping = (req, res) => {
 // @route     GET users/productss
 // @access    Public
 exports.getAllUserProducts = (req, res) => {
-  const productList = products.getAll();
   const cartcount = UserCart.getCartCount();
-  res.render('shop', { products: productList, cart: cartcount });
+  products
+    .getAll()
+    .then(product => {
+      res.render('shop', { products: product, cart: cartcount });
+    })
+    .catch(console.log);
 };
 // @desc      Get All User cart list
 // @route     GET users/checkout

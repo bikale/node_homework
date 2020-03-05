@@ -8,9 +8,14 @@ const Products = require('../model/products');
 // @route     GET /admin
 // @access    Public
 exports.getAllProducts = (req, res) => {
-  const productList = products.getAll();
-
-  res.render('products', { products: productList, cart: 0 });
+  products
+    .getAll()
+    .then(result => {
+      res.render('products', { products: result, cart: 0 });
+    })
+    .catch(err => {
+      res.send(err);
+    });
 };
 
 // @desc      Get Form fo adding products
