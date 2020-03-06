@@ -8,15 +8,12 @@ const UserCart = require('../model/user');
 // @route     Post users/usershopping
 // @access    Public
 exports.userShopping = (req, res) => {
-  const id = req.params.id;
-  const productChoosen = products.findItemById(id);
+  // const id = req.params.id;
+  // const productChoosen = products.findItemById(id);
 
-  UserCart.save(productChoosen);
+  UserCart.save(req.params.id);
 
-  const productList = products.getAll();
-  const cartcount = UserCart.getCartCount();
-
-  res.render('shop', { products: productList, cart: cartcount });
+  res.redirect('/user');
 };
 // @desc      Get All products for users
 // @route     GET users/productss
@@ -34,10 +31,11 @@ exports.getAllUserProducts = (req, res) => {
 // @route     GET users/checkout
 // @access    Public
 exports.userCheckOut = (req, res) => {
-  const userCartList = UserCart.getAll();
   const cartcount = UserCart.getCartCount();
-
-  res.render('checkout', { userCartList: userCartList, cart: cartcount });
+  UserCart.getAll().then(result => {
+   
+    res.render('checkout', { userCartList: result, cart: cartcount });
+  });
 };
 
 // @desc      Delete Item from cart list
@@ -45,9 +43,14 @@ exports.userCheckOut = (req, res) => {
 // @access    Public
 exports.deleteCartItem = (req, res) => {
   UserCart.deleteCartItem(req.params.id);
-  const userCartList = UserCart.getAll();
   const cartcount = UserCart.getCartCount();
-  res.render('checkout', { userCartList: userCartList, cart: cartcount });
+  UserCart.getAll().then(result => {
+    res.render('checkout', { userCartList: result, cart: cartcount });
+  });
+
+  // const userCartList = UserCart.getAll();
+  // const cartcount = UserCart.getCartCount();
+  // res.render('checkout', { userCartList: userCartList, cart: cartcount });
 };
 
 // @desc      Get payment form

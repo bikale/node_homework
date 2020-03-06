@@ -1,3 +1,5 @@
+const getDb = require('../utils/database').getDb;
+const ObjectId = require('mongodb').ObjectId;
 let cart = [];
 
 class User {
@@ -6,14 +8,30 @@ class User {
   //   this.imageUrl = imageUrl;
   //   this.price = price;
   // }
-  static save(itemSelected) {
-    cart.push(itemSelected);
+  static save(itemId) {
+    // getDb()
+    // .collection('products')
+    // .insertOne(itemId)
+    // .then()
+    // .catch(console.log);
+    cart.push(ObjectId(itemId));
   }
   static getAll() {
-    return cart;
+    const query = { _id: { $in: cart } };
+
+    return getDb()
+      .collection('products')
+      .find(query)
+      .toArray();
+
+    //return cart;
   }
   static deleteCartItem(id) {
-    cart = cart.filter(p => p.id != id);
+    // const query = { _id: ObjectId(id) };
+    // return getDb()
+    //   .collection('products')
+    //   .deleteOne(query);
+    cart = cart.filter(p => p != id);
   }
   static getCartCount() {
     return cart.length;

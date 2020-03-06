@@ -1,5 +1,5 @@
 const getDb = require('../utils/database').getDb;
-
+const ObjectId = require('mongodb').ObjectId;
 let products = [
   {
     id: '123456',
@@ -101,7 +101,7 @@ class Products {
       .toArray();
   }
   static deleteItem(id) {
-    const query = { id: id };
+    const query = { _id: ObjectId(id) };
     return getDb()
       .collection('products')
       .deleteOne(query);
@@ -111,14 +111,14 @@ class Products {
   static editItem(itemObj) {
     getDb()
       .collection('products')
-      .updateOne({ id: itemObj.id }, { $set: itemObj }, (err, result) => {});
+      .updateOne({ _id: ObjectId(itemObj.id) }, { $set: itemObj }, (err, result) => {});
 
     // const findeditItem = products.filter(item => item.id == itemObj.id); // return single item object in array [{}]
     // const itemIndex = products.indexOf(findeditItem[0]); // indexOf({}) get the index of the object and replace that index with new object
     // products[itemIndex] = itemObj;
   }
   static findItemById(id) {
-    const query = { id: parseFloat(id) };
+    const query = { _id: ObjectId(id) };
     return getDb()
       .collection('products')
       .find(query)
