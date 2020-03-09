@@ -3,10 +3,22 @@
 
 <%- include('layouts/navigator-user.ejs') %>
 </div>
+
+
+
+
+
 <div class="card-columns">
      <!-- start of user cart cartList display -->
 <% for(let cartList of userCartList) {%> 
+  <!-- <h4 class="d-flex justify-content-between align-items-center mb-3"> -->
+    <!-- <span class="text-muted">Your cart</span> -->
+    
+  <!-- </h4> -->
+
+
     <div class="card text-center">
+      <span class="badge badge-primary badge-pill float-right"><%= cartList.quantity%></span>
       <img class="card-img-top" src="<%= cartList.imageUrl%>" alt="<%= cartList.title%>">
       <div class="card-body">
         <h5 class="card-title"><%= cartList.price%> </h5>
@@ -23,6 +35,10 @@
       <div class="text-center">
       <a href="/user/payment/1234">
       <button class="btn btn-primary btn-lg text-center" type="submit">Continue to checkout</button></a></div>
+
+
+ 
+  
   </div>
 </div>
 </body>

@@ -94,7 +94,9 @@ class Products {
     // products.push(this);
   }
 
-  static getAll() {
+  static async getAll() {
+  
+
     return getDb()
       .collection('products')
       .find()
@@ -111,7 +113,11 @@ class Products {
   static editItem(itemObj) {
     getDb()
       .collection('products')
-      .updateOne({ _id: ObjectId(itemObj.id) }, { $set: itemObj }, (err, result) => {});
+      .updateOne(
+        { _id: ObjectId(itemObj.id) },
+        { $set: itemObj },
+        (err, result) => {}
+      );
 
     // const findeditItem = products.filter(item => item.id == itemObj.id); // return single item object in array [{}]
     // const itemIndex = products.indexOf(findeditItem[0]); // indexOf({}) get the index of the object and replace that index with new object
@@ -121,8 +127,8 @@ class Products {
     const query = { _id: ObjectId(id) };
     return getDb()
       .collection('products')
-      .find(query)
-      .toArray();
+      .findOne(query)
+      
   }
 }
 

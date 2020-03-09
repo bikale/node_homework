@@ -23,7 +23,7 @@ exports.getAllUserProducts = (req, res) => {
   products
     .getAll()
     .then(product => {
-      res.render('shop', { products: product, cart: cartcount });
+      res.render('shop', { products: product, cart: req.cartcount });
     })
     .catch(console.log);
 };
@@ -32,9 +32,11 @@ exports.getAllUserProducts = (req, res) => {
 // @access    Public
 exports.userCheckOut = (req, res) => {
   const cartcount = UserCart.getCartCount();
-  UserCart.getAll().then(result => {
-   
-    res.render('checkout', { userCartList: result, cart: cartcount });
+  UserCart.getAll().then(userData => {
+    res.render('checkout', {
+      userCartList: userData.cart,
+      cart: req.cartcount
+    });
   });
 };
 
